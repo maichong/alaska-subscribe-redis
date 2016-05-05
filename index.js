@@ -12,7 +12,7 @@ class RedisSubscribeDriver {
 
   /**
    * @param {string} channel 频道ID
-   * @param {object} options Redis连接设置
+   * @param {Object} options Redis连接设置
    */
   constructor(channel, options) {
     this.channel = channel;
@@ -110,7 +110,6 @@ class RedisSubscribeDriver {
       }
     });
   }
-
 
   /**
    * 只订阅一次信息

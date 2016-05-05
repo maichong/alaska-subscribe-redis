@@ -1,7 +1,13 @@
 {
   "name": "alaska-subscribe-redis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Alaska redis subscribe/publish driver",
+  "keywords": [
+    "alaska",
+    "alaska-subscribe",
+    "alaska-redis",
+    "redis"
+  ],
   "main": "index.js",
   "scripts": {},
   "repository": {
@@ -19,6 +25,6 @@
   },
   "homepage": "https://github.com/maichong/alaska-subscribe-redis#readme",
   "dependencies": {
-    "redis": "^2.6.0-0"
+    "redis": "^2.6.0-2"
   }
 }
