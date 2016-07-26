@@ -1,6 +1,6 @@
 {
   "name": "alaska-subscribe-redis",
-  "version": "0.1.1",
+  "version": "0.10.0",
   "description": "Alaska redis subscribe/publish driver",
   "keywords": [
     "alaska",

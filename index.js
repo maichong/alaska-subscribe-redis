@@ -11,11 +11,11 @@ const redis = require('redis');
 class RedisSubscribeDriver {
 
   /**
-   * @param {string} channel 频道ID
    * @param {Object} options Redis连接设置
    */
-  constructor(channel, options) {
-    this.channel = channel;
+  constructor(options) {
+    this.channel = options.channel;
+    this.options = options;
     this._driver = redis.createClient(options);
     this._subscribed = false;
     this._timer = 0;
@@ -76,7 +76,7 @@ class RedisSubscribeDriver {
 
   /**
    * [async] 从频道读取一条消息
-   * @param {number} timeout 超时时间,单位秒,默认为Infinity,超时后返回null
+   * @param {number} timeout 超时时间,单位毫秒,默认为Infinity,超时后返回null
    * @returns {*}
    */
   read(timeout) {
@@ -106,14 +106,14 @@ class RedisSubscribeDriver {
           this._onMessage = null;
           //超时后返回null
           resolve(null);
-        }, timeout * 1000);
+        }, timeout);
       }
     });
   }
 
   /**
    * 只订阅一次信息
-   * @param {number} timeout 超时时间,单位秒,默认为Infinity,超时后返回null
+   * @param {number} timeout 超时时间,单位毫秒,默认为Infinity,超时后返回null
    */
   once(timeout) {
     if (this._subscribed) {
@@ -145,7 +145,7 @@ class RedisSubscribeDriver {
           this.cancel();
           //超时后返回null
           resolve(null);
-        }, timeout * 1000);
+        }, timeout);
       }
     });
   }
@@ -175,6 +175,15 @@ class RedisSubscribeDriver {
         this._listener = null;
       }
     });
+  }
+
+  /**
+   * 释放当前所有任务,进入空闲状态
+   */
+  free() {
+    this.cancel();
+    this._messages = [];
+    this._onMessage = null;//message callback
   }
 
   /**
